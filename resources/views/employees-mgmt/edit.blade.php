@@ -5,17 +5,15 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Update employee</div>
+                <div class="panel-heading">Update</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('employee-management.update', ['id' => $employee->id]) }}" enctype="multipart/form-data">
-                        <input type="hidden" name="_method" value="PATCH">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('employee-management.update') }}" enctype="multipart/form-data">
+                        {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
                             <label for="firstname" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ $employee->firstname }}" required autofocus>
-
+                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
                                 @if ($errors->has('firstname'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('firstname') }}</strong>
@@ -27,7 +25,7 @@
                             <label for="lastname" class="col-md-4 control-label">Last Name</label>
 
                             <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ $employee->lastname }}" required>
+                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
 
                                 @if ($errors->has('lastname'))
                                     <span class="help-block">
@@ -40,7 +38,7 @@
                             <label for="middlename" class="col-md-4 control-label">Middle Name</label>
 
                             <div class="col-md-6">
-                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ $employee->middlename }}" required>
+                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ old('middlename') }}" required>
 
                                 @if ($errors->has('middlename'))
                                     <span class="help-block">
@@ -49,75 +47,36 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                            <label for="address" class="col-md-4 control-label">Address</label>
+
+                        <div class="form-group{{ $errors->has('chequeno') ? ' has-error' : '' }}">
+                            <label for="chequeno" class="col-md-4 control-label">chequeno</label>
 
                             <div class="col-md-6">
-                                <input id="address" type="text" class="form-control" name="address" value="{{ $employee->address }}" required>
+                                <input id="chequeno" type="text" class="form-control" name="chequeno" value="{{ old('chequeno') }}" required>
 
-                                @if ($errors->has('address'))
+                                @if ($errors->has('chequeno'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('address') }}</strong>
+                                        <strong>{{ $errors->first('chequeno') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">City</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="city_id">
-                                    @foreach ($cities as $city)
-                                        <option {{$employee->city_id == $city->id ? 'selected' : ''}} value="{{$city->id}}">{{$city->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                              <div class="form-group">
-                            <label class="col-md-4 control-label">State</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="state_id">
-                                    @foreach ($states as $state)
-                                        <option {{$employee->state_id == $state->id ? 'selected' : ''}} value="{{$state->id}}">{{$state->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Country</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="country_id">
-                                    @foreach ($countries as $country)
-                                        <option {{$employee->country_id == $country->id ? 'selected' : ''}} value="{{$country->id}}">{{$country->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('zip') ? ' has-error' : '' }}">
-                            <label for="zip" class="col-md-4 control-label">Zip</label>
+
+
+                        <div class="form-group{{ $errors->has('sex') ? ' has-error' : '' }}">
+                            <label for="sex" class="col-md-4 control-label">sex</label>
 
                             <div class="col-md-6">
-                                <input id="zip" type="text" class="form-control" name="zip" value="{{ $employee->zip }}" required>
+                                <input id="sex" type="text" class="form-control" name="sex" value="{{ old('sex') }}" required>
 
-                                @if ($errors->has('zip'))
+                                @if ($errors->has('sex'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('zip') }}</strong>
+                                        <strong>{{ $errors->first('sex') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('age') ? ' has-error' : '' }}">
-                            <label for="zip" class="col-md-4 control-label">Age</label>
 
-                            <div class="col-md-6">
-                                <input id="age" type="text" class="form-control" name="age" value="{{ $employee->age }}" required>
-
-                                @if ($errors->has('age'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('age') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">Birthday</label>
                             <div class="col-md-6">
@@ -125,7 +84,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" value="{{ $employee->birthdate }}" name="birthdate" class="form-control pull-right" id="birthDate" required>
+                                    <input type="text" value="{{ old('birthdate') }}" name="birthdate" class="form-control pull-right" id="birthDate" required>
                                 </div>
                             </div>
                         </div>
@@ -136,41 +95,112 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" value="{{ $employee->date_hired }}" name="date_hired" class="form-control pull-right" id="hiredDate" required>
+                                    <input type="text" value="{{ old('date_hired') }}" name="date_hired" class="form-control pull-right" id="hiredDate" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Department</label>
+
+
+                     <div class="form-group{{ $errors->has('designation_id') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Designation</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="department_id">
-                                    @foreach ($departments as $department)
-                                        <option {{$employee->department_id == $department->id ? 'selected' : ''}} value="{{$department->id}}">{{$department->name}}</option>
+                                <select class="form-control" name="designation_id">
+                                    @foreach ($designations as $designation)
+                                        <option value="{{$designation->id}}">{{$designation->name}}</option>
+                                    @endforeach
+                                </select>
+                                 @if ($errors->has('designation_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('designation_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group{{ $errors->has('status_id') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Status</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="status_id">
+                                    @foreach ($statuss as $status)
+                                        <option value="{{$status_id->id}}">{{$status->name}}</option>
+                                    @endforeach
+                                </select>
+                                 @if ($errors->has('status_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('status_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
+                     <div class="form-group">
+                           <label class="col-md-4 control-label">Terms of Servive</label>
+                            <div class="col-md-6">
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" value="{{ old('designation') }}" name="designation" class="form-control pull-right" id="hiredDate" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Station</label>
+                            <div class="col-md-6">
+                                <select class="form-control js-station" name="station_id">
+                                    <option value="-1">Please select your station</option>
+                                    @foreach ($stations as $station)
+                                        <option value="{{$station->id}}">{{$station->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="col-md-4 control-label">Division</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="division_id">
-                                    @foreach ($divisions as $division)
-                                        <option {{$employee->division_id == $division->id ? 'selected' : ''}} value="{{$division->id}}">{{$division->name}}</option>
-                                    @endforeach
+                                <select class="form-control js-divisions" name="division_id">
+                                    <option value="-1">Please select Division</option>
+                                    {{--  @foreach ($divisions as $division)
+                                        <option value="{{$division->id}}">{{$division->name}}</option>
+                                    @endforeach  --}}
                                 </select>
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Sections</label>
+                            <div class="col-md-6">
+                                <select class="form-control js-sections" name="section_id">
+                                    <option value="-1">Please select your section</option>
+                                    {{--  @foreach ($sections as $section)
+                                        <option value="{{$section->id}}">{{$section->name}}</option>
+                                    @endforeach  --}}
+                                </select>
+                            </div>
+                        </div>
+
+           
+
                         <div class="form-group">
                             <label for="avatar" class="col-md-4 control-label" >Picture</label>
                             <div class="col-md-6">
-                                <img src="../../{{$employee->picture }}" width="50px" height="50px"/>
-                                <input type="file" id="picture" name="picture" />
+                                <input type="file" id="picture" name="picture" required >
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Update
+                                Save
                                 </button>
                             </div>
                         </div>

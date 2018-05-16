@@ -27,20 +27,40 @@ Route::resource('user-management', 'UserManagementController');
 Route::resource('employee-management', 'EmployeeManagementController');
 Route::post('employee-management/search', 'EmployeeManagementController@search')->name('employee-management.search');
 
-Route::resource('system-management/department', 'DepartmentController');
-Route::post('system-management/department/search', 'DepartmentController@search')->name('department.search');
+Route::resource('system-management/schemeservice', 'SchemeserviceController');
+Route::post('system-management/schemeservice/search', 'SchemeserviceController@search')->name('schemeservice.search');
+
+
+
+Route::resource('transaction-management', 'TransactionManagementController');
+Route::post('transaction-management/search', 'TransactionManagementController@search')->name('transaction-management.search');
+
+
+
+
+Route::resource('trn1-management/program', 'ProgramController');
+Route::post('trn1-management/program/search', 'ProgramController@search')->name('program.search')
+;
+
+
+Route::resource('trn1-management/school', 'SchoolController');
+Route::post('trn1-management/school/search', 'SchoolController@search')->name('school.search')
+;
+
+
+Route::resource('system-management/status', 'StatusController');
+Route::post('system-management/status/search', 'StatusController@search')->name('status.search');
+
+
+
+Route::resource('system-management/station', 'StationController');
+Route::post('system-management/station/search', 'StationController@search')->name('station.search');
 
 Route::resource('system-management/division', 'DivisionController');
 Route::post('system-management/division/search', 'DivisionController@search')->name('division.search');
 
-Route::resource('system-management/country', 'CountryController');
-Route::post('system-management/country/search', 'CountryController@search')->name('country.search');
-
-Route::resource('system-management/state', 'StateController');
-Route::post('system-management/state/search', 'StateController@search')->name('state.search');
-
-Route::resource('system-management/city', 'CityController');
-Route::post('system-management/city/search', 'CityController@search')->name('city.search');
+Route::resource('system-management/section', 'SectionController');
+Route::post('system-management/section/search', 'SectionController@search')->name('section.search');
 
 Route::get('system-management/report', 'ReportController@index');
 Route::post('system-management/report/search', 'ReportController@search')->name('report.search');

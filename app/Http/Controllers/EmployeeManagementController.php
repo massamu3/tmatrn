@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Response;
 use App\Employee;
-use App\City;
-use App\State;
-use App\Country;
-use App\Department;
+use App\Section;
 use App\Division;
+use App\Station;
+use App\Status;
+use App\Designation;
+
 
 class EmployeeManagementController extends Controller
 {
@@ -31,33 +32,44 @@ class EmployeeManagementController extends Controller
      */
     public function index()
     {
-        $employees = DB::table('employees')
-        ->leftJoin('city', 'employees.city_id', '=', 'city.id')
-        ->leftJoin('department', 'employees.department_id', '=', 'department.id')
-        ->leftJoin('state', 'employees.state_id', '=', 'state.id')
-        ->leftJoin('country', 'employees.country_id', '=', 'country.id')
-        ->leftJoin('division', 'employees.division_id', '=', 'division.id')
-        ->select('employees.*', 'department.name as department_name', 'department.id as department_id', 'division.name as division_name', 'division.id as division_id')
-        ->paginate(5);
-
+        /*$employees = DB::table('employees e') // rename employee as e
+        ->select('')
+        ->leftJoin('section se', 'employees.section_id', '=', 'section.id')
+        ->leftJoin('status st', 'employees.status_id', '=', 'status.id')
+        ->leftJoin('designation sc', 'employees.designation_id', '=', 'designation.id')
+        ->leftJoin('division di', 'employees.division_id', '=', 'division.id')
+        ->leftJoin('station', 'employees.station_id', '=', 'station.id')
+        ->paginate(5);*/
+        $employees = Employee::orderBy('id', 'DESC')->with('stations', 'divisions')->paginate(10); //others can be added here
+        //return $employees;
         return view('employees-mgmt/index', ['employees' => $employees]);
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create() //Variable zote kwenye fomu lazima zitengenezwe hapa kisha ziitwe
     {
-        // $cities = City::all();
-        // $states = State::all();
-        $countries = Country::all();
-        $departments = Department::all();
-        $divisions = Division::all();
-        return view('employees-mgmt/create', ['countries' => $countries,
-        'departments' => $departments, 'divisions' => $divisions]);
+        // $cities = section::all();
+        // $divisions = division::all();
+        $stations = Station::pluck('name','id');
+        $designations = Designation::pluck('name','id');
+        $statuss = Status::pluck('name','id');
+        $divisions = Division::pluck('name','id');
+        $sections = Section::pluck('name','id');
+
+        //return $sections;
+        return view('employees-mgmt/create',
+           ['stations' => $stations,
+           'designations' => $designations, 'statuss' => $statuss, 'divisions'=> $divisions, 'sections'=> $sections
+       ]); // all to be included in the array
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -67,11 +79,11 @@ class EmployeeManagementController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
         $this->validateInput($request);
         // Upload image
         $path = $request->file('picture')->store('avatars');
-        $keys = ['lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
-        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'division_id'];
+        $keys = ['lastname', 'firstname', 'middlename', 'chequeno', 'sex', 'schemeservice','section_id', 'division_id', 'station_id', 'birthdate', 'date_hired', 'designation_id', 'status_id', 'division_id'];
         $input = $this->createQueryInput($keys, $request);
         $input['picture'] = $path;
         // Not implement yet
@@ -101,19 +113,24 @@ class EmployeeManagementController extends Controller
     public function edit($id)
     {
         $employee = Employee::find($id);
-        // Redirect to state list if updating state wasn't existed
+        // Redirect to division list if updating division wasn't existed
         if ($employee == null || count($employee) == 0) {
             return redirect()->intended('/employee-management');
         }
-        $cities = City::all();
-        $states = State::all();
-        $countries = Country::all();
-        $departments = Department::all();
-        $divisions = Division::all();
-        return view('employees-mgmt/edit', ['employee' => $employee, 'cities' => $cities, 'states' => $states, 'countries' => $countries,
-        'departments' => $departments, 'divisions' => $divisions]);
+        $sections = section::all();
+        $divisions = division::all();
+        $stations = station::all();
+        $designations = designation::all();
+        $divisions = division::all();
+        $statuss = status::all();
+        return view('employees-mgmt/edit', 
+            ['employee' => $employee, 
+            'sections' => $sections,
+            'stations' => $stations,
+            'statuss' => $statuss,
+            'designations' => $designations,
+            'divisions' => $divisions]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -126,8 +143,19 @@ class EmployeeManagementController extends Controller
         $employee = Employee::findOrFail($id);
         $this->validateInput($request);
         // Upload image
-        $keys = ['lastname', 'firstname', 'middlename', 'address', 'city_id', 'state_id', 'country_id', 'zip',
-        'age', 'birthdate', 'date_hired', 'department_id', 'department_id', 'division_id'];
+        $keys = ['lastname',
+                 'firstname',
+                 'middlename',
+                 'chequeno',
+                 'sex',
+                 'birthdate',
+                 'date_hired',
+                 'designation',
+                 'status_id',
+                 'designation_id',
+                 'station_id',
+                 'section_id',
+                 'division_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -135,7 +163,7 @@ class EmployeeManagementController extends Controller
         }
 
         Employee::where('id', $id)
-            ->update($input);
+        ->update($input);
 
         return redirect()->intended('/employee-management');
     }
@@ -148,12 +176,12 @@ class EmployeeManagementController extends Controller
      */
     public function destroy($id)
     {
-         Employee::where('id', $id)->delete();
-         return redirect()->intended('/employee-management');
-    }
+       Employee::where('id', $id)->delete();
+       return redirect()->intended('/employee-management');
+   }
 
     /**
-     * Search state from database base on some specific constraints
+     * Search division from database base on some specific constraints
      *
      * @param  \Illuminate\Http\Request  $request
      *  @return \Illuminate\Http\Response
@@ -161,21 +189,24 @@ class EmployeeManagementController extends Controller
     public function search(Request $request) {
         $constraints = [
             'firstname' => $request['firstname'],
-            'department.name' => $request['department_name']
-            ];
+            'designation.name' => $request['designation_name']
+        ];
         $employees = $this->doSearchingQuery($constraints);
-        $constraints['department_name'] = $request['department_name'];
+        $constraints['designation_name'] = $request['designation_name'];
         return view('employees-mgmt/index', ['employees' => $employees, 'searchingVals' => $constraints]);
     }
 
     private function doSearchingQuery($constraints) {
         $query = DB::table('employees')
-        ->leftJoin('city', 'employees.city_id', '=', 'city.id')
-        ->leftJoin('department', 'employees.department_id', '=', 'department.id')
-        ->leftJoin('state', 'employees.state_id', '=', 'state.id')
-        ->leftJoin('country', 'employees.country_id', '=', 'country.id')
+
+        ->leftJoin('section', 'employees.section_id', '=', 'section.id')
+        ->leftJoin('designation', 'employees.designation_id', '=', 'designation.id')
         ->leftJoin('division', 'employees.division_id', '=', 'division.id')
-        ->select('employees.firstname as employee_name', 'employees.*','department.name as department_name', 'department.id as department_id', 'division.name as division_name', 'division.id as division_id');
+        ->leftJoin('station', 'employees.station_id', '=', 'station.id')
+        ->leftJoin('division', 'employees.division_id', '=', 'division.id')
+        ->leftJoin('status', 'employees.status_id', '=', 'status.id')
+
+        ->select('employees.firstname as employee_name', 'employees.*','designation.name as designation_name', 'designation.id as designation_id', 'division.name as division_name', 'division.id as division_id');
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {
@@ -194,36 +225,33 @@ class EmployeeManagementController extends Controller
      * @param  string  $name
      * @return \Illuminate\Http\Response
      */
-    public function load($name) {
-         $path = storage_path().'/app/avatars/'.$name;
-        if (file_exists($path)) {
-            return Response::download($path);
-        }
+     public function load($name) {
+       $path = storage_path().'/app/avatars/'.$name;
+       if (file_exists($path)) {
+        return Response::download($path);
+    }
+}
+
+private function validateInput($request) {
+    $this->validate($request, [
+        'lastname' => 'required|max:60',
+        'firstname' => 'required|max:60',
+        'middlename' => 'required|max:60',
+        'station_id' => 'required',
+        'birthdate' => 'required',
+        'date_hired' => 'required',
+        'designation_id' => 'required',
+        'division_id' => 'required'
+    ]);
+}
+
+private function createQueryInput($keys, $request) {
+    $queryInput = [];
+    for($i = 0; $i < sizeof($keys); $i++) {
+        $key = $keys[$i];
+        $queryInput[$key] = $request[$key];
     }
 
-    private function validateInput($request) {
-        $this->validate($request, [
-            'lastname' => 'required|max:60',
-            'firstname' => 'required|max:60',
-            'middlename' => 'required|max:60',
-            'address' => 'required|max:120',
-            'country_id' => 'required',
-            'zip' => 'required|max:10',
-            'age' => 'required',
-            'birthdate' => 'required',
-            'date_hired' => 'required',
-            'department_id' => 'required',
-            'division_id' => 'required'
-        ]);
-    }
-
-    private function createQueryInput($keys, $request) {
-        $queryInput = [];
-        for($i = 0; $i < sizeof($keys); $i++) {
-            $key = $keys[$i];
-            $queryInput[$key] = $request[$key];
-        }
-
-        return $queryInput;
-    }
+    return $queryInput;
+}
 }

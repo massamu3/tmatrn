@@ -1,9 +1,7 @@
 <?php
 
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
-
 class Division extends Model
 {
     /**
@@ -12,7 +10,6 @@ class Division extends Model
      * @var string
      */
     protected $table = 'division';
-
     /**
     * The attributes that aren't mass assignable.
     *

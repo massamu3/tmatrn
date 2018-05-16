@@ -11,5 +11,18 @@ class Employee extends Model
     *
     * @var array
     */
+   protected $table = 'employees';
     protected $guarded = [];
+
+    public function stations() {
+    	return $this->belongsTo('App\Station', 'station_id', 'id');
+    }
+
+
+     public function divisions() {
+        return $this->belongsTo('App\Division', 'division_id', 'id');
+    }
+
+
+
 }

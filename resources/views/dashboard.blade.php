@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>EM | Empployee Management</title>
+  <title>|TRN | TMA Training Program</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -65,20 +65,29 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+      <center> <strong><h1>MINISTRY OF WORKS, TRANSPORT AND COMMUNICATION</h1></strong></center>
+      <center> <strong><h2>Tanzania Meteorological Agency</h2></strong></center>
       </h1>
       <ol class="breadcrumb">
-        <!-- li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li-->
-        <li class="active">Dashboard</li>
+        <!-- li><a href="#"><i classe="fa fa-dashboard"></i> Level</a></li-->
+      
       </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
+<h3><center> <strong><i>Training Program Collect, Store, process and Manage Training routine at TMA</i></strong></center></h3>
 
-      <!-- Your Page Content Here -->
+<p>
+  <p>
+    <p>
+      <p>
+        <p>
+          <p>
 
-    </section>
+<h4><center><p style="color:blue;"> This training software will not guarantee a vacancy for training. Oportunity for study will mostly depends on funds availability, Sponsoship needs, staff's deficit in the station(s) etc. </strong></center></h4></font>
+      </h1>
+   </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -103,5 +112,6 @@ desired effect
      Both of these plugins are recommended to enhance the
      user experience. Slimscroll is required when using the
      fixed layout. -->
+
 </body>
 </html>

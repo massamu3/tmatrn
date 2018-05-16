@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Division;
+use App\Station;
 
 class DivisionController extends Controller
 {
@@ -15,7 +16,7 @@ class DivisionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->only(["index", "create", "store", "edit", "update", "search", "destroy"]);
     }
 
     /**
@@ -25,8 +26,10 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        $divisions = Division::paginate(5);
-
+         $divisions = DB::table('division')
+        ->leftJoin('station', 'division.station_id', '=', 'station.id')
+        ->select('division.id', 'division.name', 'station.name as station_name', 'station.id as station_id')
+        ->paginate(5);
         return view('system-mgmt/division/index', ['divisions' => $divisions]);
     }
 
@@ -37,7 +40,8 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        return view('system-mgmt/division/create');
+        $stations = Station::all();
+        return view('system-mgmt/division/create', ['stations' => $stations]);
     }
 
     /**
@@ -48,9 +52,11 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
+        Station::findOrFail($request['station_id']);
         $this->validateInput($request);
          Division::create([
-            'name' => $request['name']
+            'name' => $request['name'],
+            'station_id' => $request['station_id']
         ]);
 
         return redirect()->intended('system-management/division');
@@ -75,13 +81,14 @@ class DivisionController extends Controller
      */
     public function edit($id)
     {
-        $division = Division::find($id);
+        $division = division::find($id);
         // Redirect to division list if updating division wasn't existed
         if ($division == null || count($division) == 0) {
             return redirect()->intended('/system-management/division');
         }
 
-        return view('system-mgmt/division/edit', ['division' => $division]);
+        $stations = Station::all();
+        return view('system-mgmt/division/edit', ['division' => $division, 'stations' => $stations]);
     }
 
     /**
@@ -93,12 +100,15 @@ class DivisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $division = Division::findOrFail($id);
-        $this->validateInput($request);
+        $division = division::findOrFail($id);
+         $this->validate($request, [
+        'name' => 'required|max:60'
+        ]);
         $input = [
-            'name' => $request['name']
+            'name' => $request['name'],
+            'station_id' => $request['station_id']
         ];
-        Division::where('id', $id)
+        division::where('id', $id)
             ->update($input);
         
         return redirect()->intended('system-management/division');
@@ -112,10 +122,16 @@ class DivisionController extends Controller
      */
     public function destroy($id)
     {
-        Division::where('id', $id)->delete();
+        division::where('id', $id)->delete();
          return redirect()->intended('system-management/division');
     }
 
+    public function loaddivisions($stationId) {
+        $divisions = division::where('station_id', '=', $stationId)->get(['id', 'name']);
+
+        return response()->json($divisions);
+    }
+    
     /**
      * Search division from database base on some specific constraints
      *
@@ -132,7 +148,7 @@ class DivisionController extends Controller
     }
 
     private function doSearchingQuery($constraints) {
-        $query = Division::query();
+        $query = division::query();
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {

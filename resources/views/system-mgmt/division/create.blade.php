@@ -11,7 +11,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Division Name</label>
+                            <label for="name" class="col-md-4 control-label">division Name</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
@@ -21,6 +21,16 @@
                                         <strong>{{ $errors->first('name') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">station</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="station_id">
+                                    @foreach ($stations as $station)
+                                        <option value="{{$station->id}}">{{$station->name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
