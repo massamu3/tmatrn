@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeSalary extends Model
+class Academic extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'employee_salary';
+    protected $table = 'Academic';
     
     /**
     * The attributes that aren't mass assignable.

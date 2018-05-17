@@ -212,8 +212,6 @@ academiclevels:
 
 
 
-## Automate picture on the master form
-
 ## Import Records
 
 ## Export
@@ -284,3 +282,29 @@ Ili form iweze kufanya kazi lazima yafuatayuo yafanyike. Kwa vile natumia larave
     // ...
       'Form' => Collective\Html\FormFacade::class,
       'Html' => Collective\Html\HtmlFacade::class,
+
+
+## Next quickly
+  	- Add through imployee, Seach all, Modify and Display
+  	- Access Level
+  	- Report fillter in all table; custome report
+  	- Attach certificate, Admin shall view all
+  	- Notifications for the incoming certificate
+  	- Auto display of forms fiels
+  Rules
+ - Akifika miaka 3 kustaafu hastahili kwenda shule
+ - Akifeli anakaa miaka 5 ndio asomeshwe tena
+ - Akisha someshwa anatakiwa akae miaka 3 ndio asomeshwe tena ngazi ya juu zaidi
+ - Akishasomweshwa na kumaliza anatakiwa afanye kazi miaka 3 bila kuhama
+ - History ya kila mtu inatakiwa ionekane ata kama amekufa, kuhama au kustaafu
+
+## Reports
+ - Derived form birthdate
+
+## Graphical interpretation (Lara charts)
+  - Wanawake vs wanaume
+  - Programs
+  - Divisions
+  - Sections
+  - Academic Level
+  - Training trend in 5 to come

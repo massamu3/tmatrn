@@ -27,25 +27,34 @@ Route::resource('user-management', 'UserManagementController');
 Route::resource('employee-management', 'EmployeeManagementController');
 Route::post('employee-management/search', 'EmployeeManagementController@search')->name('employee-management.search');
 
-Route::resource('system-management/schemeservice', 'SchemeserviceController');
-Route::post('system-management/schemeservice/search', 'SchemeserviceController@search')->name('schemeservice.search');
+
+Route::resource('system-management/designation', 'DesignationController');
+Route::post('system-management/designation/search', 'DesignationController@search')->name('designation.search');
 
 
 
 Route::resource('transaction-management', 'TransactionManagementController');
 Route::post('transaction-management/search', 'TransactionManagementController@search')->name('transaction-management.search');
 
+Route::resource('academiclevel-management', 'AcademiclevelManagementController');
+Route::post('academiclevel-management/search', 'AcademiclevelManagementController@search')->name('academiclevel-management.search');
 
-
+Route::resource('plan-management', 'PlanManagementController');
+Route::post('plan-management/search', 'PlanManagementController@search')->name('plan-management.search');
 
 Route::resource('trn1-management/program', 'ProgramController');
-Route::post('trn1-management/program/search', 'ProgramController@search')->name('program.search')
-;
+Route::post('trn1-management/program/search', 'ProgramController@search')->name('program.search');
 
+
+Route::resource('progressive-management', 'ProgressiveManagementController');
+Route::post('progressive-management/search', 'ProgressiveManagementController@search')->name('progressive-management.search');
+
+
+Route::resource('certificate-management', 'CertificateManagementController');
+Route::post('certificate-management/search', 'CertificateManagementController@search')->name('certificate-management.search');
 
 Route::resource('trn1-management/school', 'SchoolController');
-Route::post('trn1-management/school/search', 'SchoolController@search')->name('school.search')
-;
+Route::post('trn1-management/school/search', 'SchoolController@search')->name('school.search');
 
 
 Route::resource('system-management/status', 'StatusController');

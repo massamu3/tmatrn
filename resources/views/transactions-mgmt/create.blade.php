@@ -65,7 +65,9 @@
                         <label for="lasttrnperiod" class="col-md-4 control-label">last Trained Year</label>
                         <div class="col-md-6">
                     <!-- {{ Form::selectYear('year', 1980, 2018) }} -->
-                    {{ Form::selectYear('lasttrnperiod', 1980, 2019) }} 
+                
+                    {{ Form::select('lasttrnperiod', 1980, 2019) }} 
+
                         </div>
                     </div>
                     <div class="form-group">

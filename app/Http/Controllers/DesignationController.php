@@ -77,13 +77,13 @@ class DesignationController extends Controller
      */
     public function edit($id)
     {
-        $designation = designation::find($id);
+        $designation = Designation::find($id);
         // Redirect to designation list if updating designation wasn't existed
         if ($designation == null || count($designation) == 0) {
             return redirect()->intended('/system-management/designation');
         }
 
-        return view('system-mgmt/designation/edit', ['designation' => $schemeservice]);
+        return view('system-mgmt/designation/edit', ['designation' => $designation]);
     }
 
     /**
@@ -129,8 +129,8 @@ class DesignationController extends Controller
             'name' => $request['name']
             ];
 
-       $schemeservices = $this->doSearchingQuery($constraints);
-       return view('system-mgmt/designation/index', ['schemeservices' => $schemeservices, 'searchingVals' => $constraints]);
+       $designations = $this->doSearchingQuery($constraints);
+       return view('system-mgmt/designation/index', ['designations' => $designations, 'searchingVals' => $constraints]);
     }
 
     private function doSearchingQuery($constraints) {
@@ -148,7 +148,7 @@ class DesignationController extends Controller
     }
     private function validateInput($request) {
         $this->validate($request, [
-        'name' => 'required|max:60|unique:schemeservice'
+        'name' => 'required|max:60|unique:designation'
     ]);
     }
 }
