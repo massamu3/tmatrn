@@ -9,7 +9,7 @@
           <h3 class="box-title">List of employees</h3>
         </div>
         <div class="col-sm-4">
-          <a class="btn btn-primary" href="{{ route('employee-management.create') }}">Add new employee</a>
+          <a class="btn btn-primary" href="{{ route('employee-management.create') }}">Add new </a>
         </div>
     </div>
   </div>
@@ -22,8 +22,8 @@
       <form method="POST" action="{{ route('employee-management.search') }}">
          {{ csrf_field() }}
          @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['First Name', 'division_name'], 
-          'oldVals' => [isset($searchingVals) ? $searchingVals['firstname'] : '', isset($searchingVals) ? $searchingVals['division_name'] : '']])
+          @component('layouts.two-cols-search-row', ['items' => ['Full Name', 'division_name'], 
+          'oldVals' => [isset($searchingVals) ? $searchingVals['name_all'] : '', isset($searchingVals) ? $searchingVals['division_name'] : '']])
           @endcomponent
         @endcomponent
       </form>
@@ -49,7 +49,7 @@
             @foreach ($employees as $employee)
                 <tr role="row" class="odd">
                   <td><img src="../{{$employee->picture }}" width="50px" height="50px"/></td>
-                  <td class="sorting_1">{{ $employee->firstname }} {{$employee->middlename}} {{$employee->lastname}}</td>
+                  <td class="sorting_1">{{$employee->name_all}}</td>
                   <td class="hidden-xs">{{ $employee->sex }}</td>
                   <td class="hidden-xs">{{ $employee->birthdate }}</td>
                   <td class="hidden-xs">{{ $employee->date_hired}}</td>

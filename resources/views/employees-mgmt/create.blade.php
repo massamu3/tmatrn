@@ -9,46 +9,21 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('employee-management.store') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                            <label for="firstname" class="col-md-4 control-label">First Name</label>
+                        <div class="form-group{{ $errors->has('name_all') ? ' has-error' : '' }}">
+                            <label for="name_all" class="col-md-4 control-label">Full Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                                <input id="name_all" type="text" class="form-control" name="name_all" value="{{ old('name_all') }}" required autofocus>
 
-                                @if ($errors->has('firstname'))
+                                @if ($errors->has('name_all'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('firstname') }}</strong>
+                                    <strong>{{ $errors->first('name_all') }}</strong>
                                 </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                            <label for="lastname" class="col-md-4 control-label">Last Name</label>
-
-                            <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
-
-                                @if ($errors->has('lastname'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('lastname') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('middlename') ? ' has-error' : '' }}">
-                            <label for="middlename" class="col-md-4 control-label">Middle Name</label>
-
-                            <div class="col-md-6">
-                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ old('middlename') }}" required>
-
-                                @if ($errors->has('middlename'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('middlename') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
+         
+  
 
                         <div class="form-group{{ $errors->has('chequeno') ? ' has-error' : '' }}">
                             <label for="chequeno" class="col-md-4 control-label">chequeno</label>

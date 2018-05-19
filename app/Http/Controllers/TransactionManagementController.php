@@ -46,19 +46,18 @@ class TransactionManagementController extends Controller
     public function create() //Variable zote kwenye fomu lazima zitengenezwe hapa kisha ziitwe
     {
 
-        $employees = Employee::pluck('name','id');
+        $employees = Employee::pluck('name_all','id');
         $programs = Program::pluck('name','id');
         $schools = School::pluck('name','id');
 
 
-        //return $sections;
+
         return view('transactions-mgmt/create',
          ['employees' => $employees,
          'programs' => $programs, 
          'schools' => $schools
        ]); // all to be included in the array
     }
-
 
     /**
      * Store a newly created resource in storage.

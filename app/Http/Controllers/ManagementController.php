@@ -46,7 +46,7 @@ class TransactionManagementController extends Controller
     public function create() //Variable zote kwenye fomu lazima zitengenezwe hapa kisha ziitwe
     {
 
-        $employees = Employee::pluck('name','id');
+        $employees = Employee::pluck('name_all','id');
         $programs = Program::pluck('name','id');
         $schools = School::pluck('name','id');
 

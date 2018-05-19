@@ -242,13 +242,16 @@ academiclevels:
 
    - QLSTATE[HY000]: General error: 1364 Field 'xx' doesn't have a default value (SQL: insert into `programs`  - ensure all fiels exists in the MVCDM and field are not reserved word
 
-   -  "SQLSTATE[HY000]: General error: 1364 Field 'attachprogress' doesn't have a default value  - edit migration -> nullable()
+   -  "SQLSTATE[HY000]: General error: 1364 Field 'xx' doesn't have a default value  - edit migration -> nullable() for string is not accepted 
 
    -  "Trying to get property of non-object (View: C:\wamp\www\trn\resources\views\layouts\master.blade.php) (View: C:\wamp\www\trn\resources\views\layouts\master.blade.php) ?" - No login name in the database
 
     - "Undefined variable: request"   imesisitizwa kwenye function destroy
 
+Invalid argument supplied for foreach() (View: C:\wamp\www\tmatrn\resources\views\transactions-mgmt\create.blade.php) form properties invalid
 
+Trying to get property of non-object (View: C:\wamp\www\tmatrn\resources\views\transactions-mgmt\index.blade.php)
+in 2441cde5c117d776374649c73c13cc8d6f6bdf60.php line 61 // Angalia model--Mode iwe na id's za pande zote mbili
 
 
 System Customisations
@@ -267,15 +270,13 @@ On Service
 Dissmisal
 
 
-To load in the controller use modify employee create function change to  $sections = Section::pluck('name','id');
+To load in the controller use modify employee create function change to  $sections = Section::pluck('name','id'); pia andaliw index ya form iweze kutoa majina badala ya id
 
 in the form create, pale inapotarrajiwa kuweka data, ongeza line   {!! Form::select('somename', null, [$sections], ['class'=>'form-control js-sections']) !!} 
 Ili form iweze kufanya kazi lazima yafuatayuo yafanyike. Kwa vile natumia laravel 5.4
 
  composer require "laravelcollective/html":"^5.4.0"
-
  Next, add your new provider to the providers array of config/app.php
-
  Finally, add two class aliases to the aliases array of config/app.php:
 
   'aliases' => [
@@ -285,13 +286,18 @@ Ili form iweze kufanya kazi lazima yafuatayuo yafanyike. Kwa vile natumia larave
 
 
 ## Next quickly
-  	- Add through imployee, Seach all, Modify and Display
-  	- Access Level
-  	- Report fillter in all table; custome report
+  	- Add through imployee,
+  	- Seach all,
+  	- Modify all forms
+  	- Display
+  	- Access Level - user to upload progressive report
+  	- Report fillter in all table;
+  	- custome report
   	- Attach certificate, Admin shall view all
   	- Notifications for the incoming certificate
-  	- Auto display of forms fiels
-  Rules
+  	- Auto display javascript - separate consept
+ 
+ Rules
  - Akifika miaka 3 kustaafu hastahili kwenda shule
  - Akifeli anakaa miaka 5 ndio asomeshwe tena
  - Akisha someshwa anatakiwa akae miaka 3 ndio asomeshwe tena ngazi ya juu zaidi

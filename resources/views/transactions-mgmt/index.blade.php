@@ -58,7 +58,8 @@
             <tbody>
             @foreach ($transactions as $transaction)
             <tr role="row" class="odd">
-            <td class="hidden-xs">{{$transaction->employees->id }}</td>
+        <!-- <td class="hidden-xs">{{$transaction->employees->id }}</td> Hii inaleta id -->
+            <td class="hidden-xs">{{$transaction->employees->name_all }}</td>
             <td class="hidden-xs">{{$transaction->programs->name }}</td>
             <td class="hidden-xs">{{$transaction->schools->name }}</td>
             <td class="hidden-xs">{{$transaction->status2 }}</td>

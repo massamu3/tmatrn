@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App; // Hii ni ile ya kubadilisha ID kwenye index.ple iwe maneno
 
 use Illuminate\Database\Eloquent\Model;
 

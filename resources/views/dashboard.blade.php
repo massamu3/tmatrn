@@ -65,9 +65,9 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      <center> <strong><h1>MINISTRY OF WORKS, TRANSPORT AND COMMUNICATION</h1></strong></center>
-      <center> <strong><h2>Tanzania Meteorological Agency</h2></strong></center>
-      </h1>
+      <center> <strong><h2>MINISTRY OF WORKS, TRANSPORT AND COMMUNICATION</h1></strong></center></h2>
+      <center> <strong><h1>Tanzania Meteorological Agency</h1></strong></center>
+    
       <ol class="breadcrumb">
         <!-- li><a href="#"><i classe="fa fa-dashboard"></i> Level</a></li-->
       
@@ -85,7 +85,7 @@ desired effect
         <p>
           <p>
 
-<h4><center><p style="color:blue;"> This training software will not guarantee a vacancy for training. Oportunity for study will mostly depends on funds availability, Sponsoship needs, staff's deficit in the station(s) etc. </strong></center></h4></font>
+<h4><center><p style="color:blue;"> This software is a guide for planning training program and Activities: </strong></center></h4></font>
       </h1>
    </section>
     <!-- /.content -->

@@ -32,14 +32,7 @@ class EmployeeManagementController extends Controller
      */
     public function index()
     {
-        /*$employees = DB::table('employees e') // rename employee as e
-        ->select('')
-        ->leftJoin('section se', 'employees.section_id', '=', 'section.id')
-        ->leftJoin('status st', 'employees.status_id', '=', 'status.id')
-        ->leftJoin('designation sc', 'employees.designation_id', '=', 'designation.id')
-        ->leftJoin('division di', 'employees.division_id', '=', 'division.id')
-        ->leftJoin('station', 'employees.station_id', '=', 'station.id')
-        ->paginate(5);*/
+
         $employees = Employee::orderBy('id', 'DESC')->with('stations', 'divisions')->paginate(10); //others can be added here
         //return $employees;
         return view('employees-mgmt/index', ['employees' => $employees]);
@@ -83,7 +76,7 @@ class EmployeeManagementController extends Controller
         $this->validateInput($request);
         // Upload image
         $path = $request->file('picture')->store('avatars');
-        $keys = ['lastname', 'firstname', 'middlename', 'chequeno', 'sex', 'schemeservice','section_id', 'division_id', 'station_id', 'birthdate', 'date_hired', 'designation_id', 'status_id', 'division_id'];
+        $keys = ['name_all', 'chequeno', 'sex', 'schemeservice','section_id', 'division_id', 'station_id', 'birthdate', 'date_hired', 'designation_id', 'status_id', 'division_id'];
         $input = $this->createQueryInput($keys, $request);
         $input['picture'] = $path;
         // Not implement yet
@@ -143,19 +136,7 @@ class EmployeeManagementController extends Controller
         $employee = Employee::findOrFail($id);
         $this->validateInput($request);
         // Upload image
-        $keys = ['lastname',
-                 'firstname',
-                 'middlename',
-                 'chequeno',
-                 'sex',
-                 'birthdate',
-                 'date_hired',
-                 'designation',
-                 'status_id',
-                 'designation_id',
-                 'station_id',
-                 'section_id',
-                 'division_id'];
+    $keys = ['name_all', 'chequeno','sex','birthdate', 'date_hired','designation_id', 'status_id','schemeservice', 'station_id', 'division_id', 'section_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -188,7 +169,7 @@ class EmployeeManagementController extends Controller
      */
     public function search(Request $request) {
         $constraints = [
-            'firstname' => $request['firstname'],
+            'firstname' => $request['firstname'], // search name_all itatumika
             'designation.name' => $request['designation_name']
         ];
         $employees = $this->doSearchingQuery($constraints);
@@ -234,9 +215,7 @@ class EmployeeManagementController extends Controller
 
 private function validateInput($request) {
     $this->validate($request, [
-        'lastname' => 'required|max:60',
-        'firstname' => 'required|max:60',
-        'middlename' => 'required|max:60',
+        'name_all' => 'required|max:200',
         'station_id' => 'required',
         'birthdate' => 'required',
         'date_hired' => 'required',

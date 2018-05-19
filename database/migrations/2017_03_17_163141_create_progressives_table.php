@@ -16,16 +16,14 @@ class CreateProgressivesTable extends Migration
      
 Schema::create('progressives', function (Blueprint $table) {
         $table->increments('id', true);
-        $table->integer('employee_id')->unsigned();
-        $table->integer('school_id')->unsigned();
         $table->integer('transaction_id')->unsigned();
-        $table->string('remarks');
         $table->string('attach_cert');
+        $table->string('remarks');
+        $table->integer('flag')->default(0);
         $table->timestamps();
         $table->softDeletes();
-        $table->foreign('employee_id')->references('id')->on('employee');
         $table->foreign('transaction_id')->references('id')->on('transaction');
-        $table->foreign('school_id')->references('id')->on('school');
+
        });
     }
 

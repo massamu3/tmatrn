@@ -12,9 +12,6 @@ use App\School;
 use App\Program;
 
 
-// id  employee_id school_id   transaction_id  remarks attach_cert 
-
-
 class ProgressiveManagementController extends Controller
 {
     /**
@@ -34,12 +31,10 @@ class ProgressiveManagementController extends Controller
      */
     public function index()
     {
-    $transactions = Transaction::orderBy('id', 'DESC')->with('employees', 'programs','schools')->paginate(10); //Load variable from model
-        //return $transactions;
-    return view('transactions-mgmt/index', ['transactions' => $transactions]);
+    $progressives = Progressive::orderBy('id', 'DESC')->with('employees', 'programs','schools')->paginate(10); //Load variable from model
+        //return $progressives;
+    return view('progressives-mgmt/index', ['progressives' => $progressives]);
 }
-
-
 
 
     /**
@@ -49,19 +44,22 @@ class ProgressiveManagementController extends Controller
      */
     public function create() //Variable zote kwenye fomu lazima zitengenezwe hapa kisha ziitwe
     {
-
-        $employees = Employee::pluck('name','id');
+        // Read how to attach
+        $employees = Employee::pluck('name_all','id');
         $programs = Program::pluck('name','id');
         $schools = School::pluck('name','id');
 
+ 
+
 
         //return $sections;
-        return view('transactions-mgmt/create',
+        return view('progressives-mgmt/create',
          ['employees' => $employees,
          'programs' => $programs, 
          'schools' => $schools
        ]); // all to be included in the array
     }
+
 
 
     /**
@@ -74,14 +72,15 @@ class ProgressiveManagementController extends Controller
     {
         //return $request->all();
         $this->validateInput($request);
-        $keys = ['employee_id', 'program_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode'];
+        $keys = ['transaction_id', 'attach_cert', 'remarks', 'flag'];
 
         $input = $this->createQueryInput($keys, $request);
-        Transaction::create($input);
-        return redirect()->intended('/transaction-management');
+        Progressive::create($input);
+        return redirect()->intended('/progressive-management');
     }
 
-    /**
+
+   /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -100,18 +99,18 @@ class ProgressiveManagementController extends Controller
      */
     public function edit($id)
     {
-        $transaction = Transaction::find($id);
+        $progressive = Progressive::find($id);
         // Redirect to division list if updating division wasn't existed
-        if ($transaction == null || count($transaction) == 0) {
-            return redirect()->intended('/transaction-management');
+        if ($progressive == null || count($progressive) == 0) {
+            return redirect()->intended('/progressive-management');
         }
         $employees = employee::all();
         $programs = program::all();
         $schools = school::all();
       
 
-        return view('transactions-mgmt/edit', 
-            ['transaction' => $transaction, 
+        return view('progressives-mgmt/edit', 
+            ['progressive' => $progressive, 
             'programs' => $programs,
             'schools' => $schools]);
     }
@@ -124,15 +123,15 @@ class ProgressiveManagementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $transaction = Transaction::findOrFail($id);
+        $progressive = Progressive::findOrFail($id);
         $this->validateInput($request);
  
-    $keys = ['employee_id', 'program_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode'];
+    $keys = ['progressive_id', 'employee_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode'];
     $input = $this->createQueryInput($keys, $request);
-        Transaction::where('id', $id)
+        Progressive::where('id', $id)
         ->update($input);
-
-        return redirect()->intended('/transaction-management');
+// id  name_all      // id  transaction_id  attach_cert remarks flag 
+        return redirect()->intended('/progressive-management');
     }
 
     /**
@@ -143,8 +142,8 @@ class ProgressiveManagementController extends Controller
      */
     public function destroy($id)
     {
-     transaction::where('id', $id)->delete();
-     return redirect()->intended('/transaction-management');
+     progressive::where('id', $id)->delete();
+     return redirect()->intended('/progressive-management');
  }
 
     /**
@@ -158,21 +157,21 @@ class ProgressiveManagementController extends Controller
             'firstname' => $request['firstname'],
             'designation.name' => $request['designation_name']
         ];
-        $transactions = $this->doSearchingQuery($constraints);
+        $progressives = $this->doSearchingQuery($constraints);
         $constraints['designation_name'] = $request['designation_name'];
-        return view('transactions-mgmt/index', ['transactions' => $transactions, 'searchingVals' => $constraints]);
+        return view('progressives-mgmt/index', ['progressives' => $progressives, 'searchingVals' => $constraints]);
     }
 
     private function doSearchingQuery($constraints) {
-        $query = DB::table('transactions')
-        ->leftJoin('section', 'transactions.section_id', '=', 'section.id')
-        ->leftJoin('designation', 'transactions.designation_id', '=', 'designation.id')
-        ->leftJoin('division', 'transactions.division_id', '=', 'division.id')
-        ->leftJoin('station', 'transactions.station_id', '=', 'station.id')
-        ->leftJoin('division', 'transactions.division_id', '=', 'division.id')
-        ->leftJoin('status', 'transactions.status_id', '=', 'status.id')
+        $query = DB::table('progressives')
+        ->leftJoin('section', 'progressives.section_id', '=', 'section.id')
+        ->leftJoin('designation', 'progressives.designation_id', '=', 'designation.id')
+        ->leftJoin('division', 'progressives.division_id', '=', 'division.id')
+        ->leftJoin('station', 'progressives.station_id', '=', 'station.id')
+        ->leftJoin('division', 'progressives.division_id', '=', 'division.id')
+        ->leftJoin('status', 'progressives.status_id', '=', 'status.id')
 
-        ->select('transactions.firstname as transaction_name', 'transactions.*','designation.name as designation_name', 'designation.id as designation_id', 'division.name as division_name', 'division.id as division_id');
+        ->select('progressives.firstname as progressive_name', 'progressives.*','designation.name as designation_name', 'designation.id as designation_id', 'division.name as division_name', 'division.id as division_id');
         $fields = array_keys($constraints);
         $index = 0;
         foreach ($constraints as $constraint) {
@@ -200,7 +199,7 @@ class ProgressiveManagementController extends Controller
 
     private function validateInput($request) {
         $this->validate($request, [
-           'employee_id' => 'required',
+           'progressive_id' => 'required',
            'program_id' => 'required',
            'lasttrnperiod' => 'required|max:60',
            'progmode' => 'required|max:60'

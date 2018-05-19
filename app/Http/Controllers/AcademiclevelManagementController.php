@@ -43,7 +43,7 @@ class AcademiclevelManagementController extends Controller
     public function create() //Variable zote kwenye fomu lazima zitengenezwe hapa kisha ziitwe
     {
 
-        $employees = Employee::pluck('lastname', 'firstname', 'middlename','id');
+        $employees = Employee::pluck('name_all','id');
         $programs = Program::pluck('name','id');
         $academics = Academic::pluck('name','id');
 

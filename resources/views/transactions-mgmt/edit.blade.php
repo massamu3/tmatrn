@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Update</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('employee-management.update') }}" enctype="multipart/form-data">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('transaction-management.update') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('employee_id') ? ' has-error' : '' }}">

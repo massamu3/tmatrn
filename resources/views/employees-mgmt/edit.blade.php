@@ -9,44 +9,23 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('employee-management.update') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
-                        <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-                            <label for="firstname" class="col-md-4 control-label">First Name</label>
+                        <div class="form-group{{ $errors->has('name_all') ? ' has-error' : '' }}">
+                            <label for="name_all" class="col-md-4 control-label">Full Name</label>
 
                             <div class="col-md-6">
-                                <input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
-                                @if ($errors->has('firstname'))
+                                <input id="name_all" type="text" class="form-control" name="name_all" value="{{ old('name_all') }}" required autofocus>
+
+                                @if ($errors->has('name_all'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('firstname') }}</strong>
+                                        <strong>{{ $errors->first('name_all') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-                            <label for="lastname" class="col-md-4 control-label">Last Name</label>
 
-                            <div class="col-md-6">
-                                <input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
+        
 
-                                @if ($errors->has('lastname'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('lastname') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group{{ $errors->has('middlename') ? ' has-error' : '' }}">
-                            <label for="middlename" class="col-md-4 control-label">Middle Name</label>
 
-                            <div class="col-md-6">
-                                <input id="middlename" type="text" class="form-control" name="middlename" value="{{ old('middlename') }}" required>
-
-                                @if ($errors->has('middlename'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('middlename') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
 
                         <div class="form-group{{ $errors->has('chequeno') ? ' has-error' : '' }}">
                             <label for="chequeno" class="col-md-4 control-label">chequeno</label>
@@ -101,23 +80,17 @@
                         </div>
 
 
-                     <div class="form-group{{ $errors->has('designation_id') ? ' has-error' : '' }}">
-                            <label class="col-md-4 control-label">Designation</label>
+                     <div class="form-group">
+                           <label class="col-md-4 control-label">Designation</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="designation_id">
-                                    @foreach ($designations as $designation)
-                                        <option value="{{$designation->id}}">{{$designation->name}}</option>
-                                    @endforeach
-                                </select>
-                                 @if ($errors->has('designation_id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('designation_id') }}</strong>
-                                    </span>
-                                @endif
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" value="{{ old('designation') }}" name="designation" class="form-control pull-right" id="hiredDate" required>
+                                </div>
                             </div>
                         </div>
-
-
 
 
                         <div class="form-group{{ $errors->has('status_id') ? ' has-error' : '' }}">
@@ -137,18 +110,22 @@
                         </div>
 
 
-                     <div class="form-group">
-                           <label class="col-md-4 control-label">Terms of Servive</label>
+
+                     <div class="form-group{{ $errors->has('schemeservice_id') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">schemeservice</label>
                             <div class="col-md-6">
-                                <div class="input-group date">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </div>
-                                    <input type="text" value="{{ old('designation') }}" name="designation" class="form-control pull-right" id="hiredDate" required>
-                                </div>
+                                <select class="form-control" name="schemeservice_id">
+                                    @foreach ($schemeservices as $schemeservice)
+                                        <option value="{{$schemeservice->id}}">{{$schemeservice->name}}</option>
+                                    @endforeach
+                                </select>
+                                 @if ($errors->has('schemeservice_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('schemeservice_id') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-
 
 
 
