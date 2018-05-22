@@ -32,18 +32,20 @@ Route::resource('system-management/designation', 'DesignationController');
 Route::post('system-management/designation/search', 'DesignationController@search')->name('designation.search');
 
 
-
 Route::resource('transaction-management', 'TransactionManagementController');
 Route::post('transaction-management/search', 'TransactionManagementController@search')->name('transaction-management.search');
 
-Route::resource('academiclevel-management', 'AcademiclevelManagementController');
-Route::post('academiclevel-management/search', 'AcademiclevelManagementController@search')->name('academiclevel-management.search');
+Route::resource('qualification-management', 'QualificationManagementController');
+Route::post('qualification-management/search', 'QualificationManagementController@search')->name('qualification-management.search');
 
 Route::resource('plan-management', 'PlanManagementController');
 Route::post('plan-management/search', 'PlanManagementController@search')->name('plan-management.search');
 
 Route::resource('trn1-management/program', 'ProgramController');
 Route::post('trn1-management/program/search', 'ProgramController@search')->name('program.search');
+
+Route::resource('trn1-management/academic', 'AcademicController');
+Route::post('trn1-management/academic/search', 'academicController@search')->name('academic.search');
 
 
 Route::resource('progressive-management', 'ProgressiveManagementController');

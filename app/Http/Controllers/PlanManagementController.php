@@ -8,9 +8,8 @@ use Response;
 use App\Plan;
 use App\Employee;
 use App\Program;
-
-
-// employee_id program_id  startdate   progmod pcost
+use App\Academic;
+use App\School;
 
 
 class PlanManagementController extends Controller
@@ -32,10 +31,11 @@ class PlanManagementController extends Controller
      */
     public function index()
     {
-    $plans = Plan::orderBy('id', 'DESC')->with('employees', 'programs')->paginate(10); //Load variable from model
+    $plans = Plan::orderBy('id', 'DESC')->with('employees', 'programs','academics','schools')->paginate(10); //Load variable from model
         //return $plans;
     return view('plans-mgmt/index', ['plans' => $plans]);
 }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,15 +47,18 @@ class PlanManagementController extends Controller
 
         $employees = Employee::pluck('name_all','id');
         $programs = Program::pluck('name','id');
+        $programs = Academic::pluck('name','id');
+        $schools = School::pluck('name','id');
 
 
 
         //return $sections;
         return view('plans-mgmt/create',
          ['employees' => $employees,
-         'programs' => $programs
-
-       ]); // all to be included in the array for them to load in the combo box, this hii ndion inayochukua kwenye model iliyounganishwa na database
+         'programs' => $programs, 
+         'academics' => $programs, 
+         'schools' => $schools
+       ]); // all to be included in the array
     }
 
 
@@ -69,9 +72,7 @@ class PlanManagementController extends Controller
     {
         //return $request->all();
         $this->validateInput($request);
-        $keys = ['employee_id', 'program_id', 'startdate','progmod','ifattend', 'pcost'];
-
-
+      $keys = ['employee_id', 'program_id', 'academic_id','school_id', 'startdate', 'progmod', 'ifattend','pcost'];
 
         $input = $this->createQueryInput($keys, $request);
         Plan::create($input);
@@ -104,11 +105,16 @@ class PlanManagementController extends Controller
         }
         $employees = employee::all();
         $programs = program::all();
-
+        $academics = academic::all();
+        $schools = school::all();
+    
 
         return view('plans-mgmt/edit', 
             ['plan' => $plan, 
-            'programs' => $programs]);
+            'programs' => $programs,
+            'employees' => $employees,
+            'academics' => $academics,
+            'schools' => $schools]);
     }
     /**
      * Update the specified resource in storage.
@@ -122,13 +128,14 @@ class PlanManagementController extends Controller
         $plan = Plan::findOrFail($id);
         $this->validateInput($request);
  
-    $keys = ['employee_id', 'program_id', 'startdate', 'progmod','ifattend', 'pcost'];
+    $keys = ['employee_id', 'program_id','academic_id', 'school_id', 'startdate', 'progmod','ifattend', 'pcost'];
     $input = $this->createQueryInput($keys, $request);
         Plan::where('id', $id)
         ->update($input);
-// employee_id program_id  startdate   progmod pcost
+
         return redirect()->intended('/plan-management');
     }
+
 
 
     /**
@@ -187,13 +194,21 @@ class PlanManagementController extends Controller
      * @param  string  $name
      * @return \Illuminate\Http\Response
      */
+     public function load($name) {
+         $path = storage_path().'/app/avatars/'.$name;
+         if (file_exists($path)) {
+            return Response::download($path);
+        }
+    }
 
     private function validateInput($request) {
         $this->validate($request, [
            'employee_id' => 'required',
-           'program_id' => 'required'
-
-        ]);
+           'program_id' => 'required',
+           'startdate' => 'required|max:60',
+           'progmod' => 'required|max:60'
+   
+         ]);
     }
 
     private function createQueryInput($keys, $request) {

@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Progressive extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'transactions';
+    protected $table = 'progressives';
 
 
     /**
@@ -27,19 +27,9 @@ class Transaction extends Model
     }
 
 
-     public function Academics() {
-        return $this->belongsTo('App\Academic', 'academic_id', 'id');
+    public function transactions() {
+        return $this->belongsTo('App\Transaction', 'transaction_id', 'id');
     }
-
-    public function programs() {
-        return $this->belongsTo('App\Program', 'program_id', 'id');
-    }
-
-
-    public function schools() {
-        return $this->belongsTo('App\School', 'school_id', 'id');
-    }
-
 
 
 }

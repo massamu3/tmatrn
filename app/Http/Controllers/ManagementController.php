@@ -9,6 +9,7 @@ use App\Transaction;
 use App\Employee;
 use App\School;
 use App\Program;
+use App\Academic;
 
 
 class TransactionManagementController extends Controller
@@ -30,7 +31,7 @@ class TransactionManagementController extends Controller
      */
     public function index()
     {
-    $transactions = Transaction::orderBy('id', 'DESC')->with('employees', 'programs','schools')->paginate(10); //Load variable from model
+    $transactions = Transaction::orderBy('id', 'DESC')->with('employees', 'programs','academics','schools')->paginate(10); //Load variable from model
         //return $transactions;
     return view('transactions-mgmt/index', ['transactions' => $transactions]);
 }
@@ -48,6 +49,7 @@ class TransactionManagementController extends Controller
 
         $employees = Employee::pluck('name_all','id');
         $programs = Program::pluck('name','id');
+        $academics = Academic::pluck('name','id');
         $schools = School::pluck('name','id');
 
 
@@ -55,6 +57,7 @@ class TransactionManagementController extends Controller
         return view('transactions-mgmt/create',
          ['employees' => $employees,
          'programs' => $programs, 
+        'academics' => $academics, 
          'schools' => $schools
        ]); // all to be included in the array
     }
@@ -70,7 +73,7 @@ class TransactionManagementController extends Controller
     {
         //return $request->all();
         $this->validateInput($request);
-        $keys = ['employee_id', 'program_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode'];
+      $keys = ['employee_id', 'program_id', 'academic_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode','gpa','sponsorship','country'];
 
         $input = $this->createQueryInput($keys, $request);
         Transaction::create($input);
@@ -103,12 +106,14 @@ class TransactionManagementController extends Controller
         }
         $employees = employee::all();
         $programs = program::all();
+        $academics = Academic::all();
         $schools = school::all();
       
 
         return view('transactions-mgmt/edit', 
             ['transaction' => $transaction, 
             'programs' => $programs,
+             'academics' => $academics,
             'schools' => $schools]);
     }
     /**
@@ -123,7 +128,7 @@ class TransactionManagementController extends Controller
         $transaction = Transaction::findOrFail($id);
         $this->validateInput($request);
  
-    $keys = ['employee_id', 'program_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode'];
+    $keys = ['employee_id', 'program_id', 'academic_id','school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode','gpa'];
     $input = $this->createQueryInput($keys, $request);
         Transaction::where('id', $id)
         ->update($input);

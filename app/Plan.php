@@ -31,6 +31,15 @@ class Plan extends Model
         return $this->belongsTo('App\Program', 'program_id', 'id');
     }
 
+             public function schools() {
+        return $this->belongsTo('App\School', 'school_id', 'id');
+    }
+
+   public function academics() {
+        return $this->belongsTo('App\academic', 'academic_id', 'id');
+    }
+
+
 
 
 }

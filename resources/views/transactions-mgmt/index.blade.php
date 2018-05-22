@@ -39,7 +39,7 @@
       
                 <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Sex: activate to sort column ascending">Program</th>
            
-                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="school: activate to sort column ascending">School </th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="school: activate to sort column ascending">Institution </th>
 
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="status2: activate to sort column ascending">Status</th>
 
@@ -49,7 +49,11 @@
 
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="End date: activate to sort column ascending">End Date</th>
 
-                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Program mode </th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Program Type </th>
+
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Sponsorship </th>
+
+                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Country </th>
 
 
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
@@ -67,6 +71,9 @@
             <td class="hidden-xs">{{$transaction->startdate }}</td>
             <td class="hidden-xs">{{$transaction->enddate}}</td>
             <td class="hidden-xs">{{$transaction->progmode}}</td>
+            <td class="hidden-xs">{{$transaction->sponsorship}}</td>
+            <td class="hidden-xs">{{$transaction->country}}</td>
+             
                   <td>
             
 
@@ -110,7 +117,11 @@
 
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Program mode </th>
 
- <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Sponsorship </th>
+
+                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmode : activate to sort column ascending">Country </th>
+
+                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
 
               </tr>
               </tr>

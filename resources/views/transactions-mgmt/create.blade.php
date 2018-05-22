@@ -54,6 +54,18 @@
 
 
 
+                        <div class="form-group{{ $errors->has('academic_id') ? ' has-error' : '' }}">
+                            <label class="col-md-4 control-label">Program Name</label>
+                            <div class="col-md-6">
+                                {!! Form::select('academic_id', $academics, ['class'=>'form-control']) !!}
+                                @if ($errors->has('academic_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('academic_id') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+
 
 
                 <div class="form-group{{ $errors->has('progmode') ? ' has-error' : '' }}">
@@ -82,9 +94,6 @@
 
 
 
-
-
-
                    <div class="form-group">
                             <label class="col-md-4 control-label">Program start date</label>
                             <div class="col-md-6">
@@ -101,7 +110,7 @@
 
 
            <div class="form-group">
-                    <label class="col-md-4 control-label">End Program Date-yes</label>
+                    <label class="col-md-4 control-label">End Program Date</label>
                     <div class="col-md-6">
                         <div class="input-group date">
                             <div class="input-group-addon">
@@ -130,6 +139,50 @@
                     @endif
                 </div>
             </div>
+
+    <div class="form-group{{ $errors->has('sponsorship') ? ' has-error' : '' }}">
+                  <label for="sponsorship" class="col-md-4 control-label">Sponsorship</label>
+
+                  <div class="col-md-6">
+                      {{ Form::select('sponsorship', ['Tanzanian Goverment' => 'Tanzanian Goverment','Self Sponsored' => 'Self Sponsored']) }}
+                      @if ($errors->has('sponsorship'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('sponsorship') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+
+
+
+
+        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                  <label for="country" class="col-md-4 control-label">Country</label>
+
+                  <div class="col-md-6">
+                      {{ Form::select('country', ['Tanzania' => 'Tanzania','Kenya' => 'Kenya', 'China' => 'China','UK' => 'UK','Russia' => 'Japan','Japan']) }}
+                      @if ($errors->has('country'))
+                      <span class="help-block">
+                        <strong>{{ $errors->first('country') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+
+
+                        <div class="form-group{{ $errors->has('gpa') ? ' has-error' : '' }}">
+                            <label for="gpa" class="col-md-4 control-label">gpa</label>
+
+                            <div class="col-md-6">
+                                <input id="gpa" type="text" class="form-control" name="gpa" value="{{ old('gpa') }}" required>
+
+                                @if ($errors->has('gpa'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('gpa') }}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
 
 
 

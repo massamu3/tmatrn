@@ -8,8 +8,6 @@ use Response;
 use App\Progressive;
 use App\Transaction;
 use App\Employee;
-use App\School;
-use App\Program;
 
 
 class ProgressiveManagementController extends Controller
@@ -31,11 +29,10 @@ class ProgressiveManagementController extends Controller
      */
     public function index()
     {
-    $progressives = Progressive::orderBy('id', 'DESC')->with('employees', 'programs','schools')->paginate(10); //Load variable from model
+    $progressives = Progressive::orderBy('id', 'DESC')->with('employees', 'transactions')->paginate(10); //Load variable from model
         //return $progressives;
     return view('progressives-mgmt/index', ['progressives' => $progressives]);
 }
-
 
     /**
      * Show the form for creating a new resource.
@@ -46,17 +43,15 @@ class ProgressiveManagementController extends Controller
     {
         // Read how to attach
         $employees = Employee::pluck('name_all','id');
-        $programs = Program::pluck('name','id');
-        $schools = School::pluck('name','id');
+        $transactions = Transaction::pluck('startdate','enddate','id');
 
- 
 
 
         //return $sections;
         return view('progressives-mgmt/create',
          ['employees' => $employees,
-         'programs' => $programs, 
-         'schools' => $schools
+         'transactions' => $transactions
+    
        ]); // all to be included in the array
     }
 
@@ -68,24 +63,27 @@ class ProgressiveManagementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+
+ public function store(Request $request)
     {
         //return $request->all();
         $this->validateInput($request);
-        $keys = ['transaction_id', 'attach_cert', 'remarks', 'flag'];
-
+        // Upload image
+        $path = $request->file('attach_doc')->store('ripositori');
+        $keys = ['transaction_id', 'employee_id', 'doc_type', 'remarks', 'flag'];
         $input = $this->createQueryInput($keys, $request);
-        Progressive::create($input);
+        $input['attach_doc'] = $path;
+        // Not implement yet
+        // $input['company_id'] = 0;
+        Employee::create($input);
+
         return redirect()->intended('/progressive-management');
     }
 
+    //id  transaction_id  employee_id doc_type    attach_doc  remarks flag
 
-   /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
@@ -105,14 +103,13 @@ class ProgressiveManagementController extends Controller
             return redirect()->intended('/progressive-management');
         }
         $employees = employee::all();
-        $programs = program::all();
-        $schools = school::all();
-      
+        $transactions = Transaction::all();
+       
 
         return view('progressives-mgmt/edit', 
             ['progressive' => $progressive, 
-            'programs' => $programs,
-            'schools' => $schools]);
+            'employees' => $employees,
+            'transactions' => $transactions]);
     }
     /**
      * Update the specified resource in storage.
@@ -126,7 +123,8 @@ class ProgressiveManagementController extends Controller
         $progressive = Progressive::findOrFail($id);
         $this->validateInput($request);
  
-    $keys = ['progressive_id', 'employee_id', 'school_id', 'status2', 'lasttrnperiod', 'startdate','enddate', 'progmode'];
+$keys = ['transaction_id', 'employee_id', 'attach_cert', 'remarks', 'flag',];
+
     $input = $this->createQueryInput($keys, $request);
         Progressive::where('id', $id)
         ->update($input);
@@ -200,9 +198,9 @@ class ProgressiveManagementController extends Controller
     private function validateInput($request) {
         $this->validate($request, [
            'progressive_id' => 'required',
-           'program_id' => 'required',
-           'lasttrnperiod' => 'required|max:60',
-           'progmode' => 'required|max:60'
+           // 'pro_id' => 'required',
+           // 'lasttrnperiod' => 'required|max:60',
+           // 'progmode' => 'required|max:60'
 
         ]);
     }

@@ -24,7 +24,7 @@ class Academiclevel extends Model
 
       public function employees() {
 
-    return $this->belongsTo('App\Employee', 'lastname','firstname','middlename','id');
+    return $this->belongsTo('App\Employee', 'employee_id','id');
     }
 
 

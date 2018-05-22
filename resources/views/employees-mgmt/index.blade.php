@@ -48,7 +48,7 @@
             <tbody>
             @foreach ($employees as $employee)
                 <tr role="row" class="odd">
-                  <td><img src="../{{$employee->picture }}" width="50px" height="50px"/></td>
+                  <td><img src="../{{$employee->picture}}" width="50px" height="50px"/></td>
                   <td class="sorting_1">{{$employee->name_all}}</td>
                   <td class="hidden-xs">{{ $employee->sex }}</td>
                   <td class="hidden-xs">{{ $employee->birthdate }}</td>

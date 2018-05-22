@@ -47,12 +47,14 @@ IT uses Laravel 5.5 and AdminLTE and Mysql Database
 	- Setup database
 	- php artisan migrate
 	- php artisan make:auth
+
 ## Procedures for adminLTE
 	- Download in https://adminlte.io
 	- Follow the procedure https://adminlte.io/docs/2.4/installation
 	--npm install admin-lte --save
 	--npm install 
 	--npm run dev // this will compile  package.json file in root directory
+
 ## Configure mix between adminLTE and Laravel
 	- Open the source code in the downloaded adminLTE-2.4.3/starter.html
 	- Create new file in resources\views\layouts\master.blade.php and paste source code above
@@ -61,12 +63,14 @@ IT uses Laravel 5.5 and AdminLTE and Mysql Database
 	-Import adminlte CSS: Open the file \resources\assets\sass\app.scss replace the bottom line import Adminlte CSS files @import "~admin-lte/dist/css/AdminLTE.css"; and  @import "~admin-lte/dist/css/skins/_all-skins.css"; 
 	- Save and compile it by npm run watch 
 	- From here an error occur (Error number 1)
+
 ## What I did (To correct error number 1)
 	- Open public folder
 	- Bower install admin-lte
 	- Then nikaenda add css na js kwenye master.blade.php
 	- Madesa ya css nimechukua kwenye bower_install/admin-lte/index.html
 	- Go to the file 
+
 ## Installation iliendelea kwa kufanya yaguatayo:-
 	- Databases zilishaandaliwa tangu mwanzo. 
 	- Baada ya hapo run php artisan make:controller RegistersController //controller Created at http\controller (Registers ni mfano wa database, database zote zinazohitajika zilitengenezwa)
@@ -108,7 +112,7 @@ $table->increments('employees', true);
   		$table->string('sex', 6);
   		$table->date('birthdate');
   		$table->date('date_hired');
-		$table->integer('schemeservice_id')->unsigned();
+		  $table->integer('schemeservice_id')->unsigned();
     	$table->integer('section_id')->unsigned();
     	$table->integer('status_id')->unsigned();
     	$table->integer('division_id')->unsigned();
@@ -139,14 +143,14 @@ Schema::create('transactions', function (Blueprint $table)
         $table->softDeletes();
 
 
-certificates  (Shall upload but neither delete nor update)
+    certificates  (Shall upload but neither delete nor update)
 		$table->integer('employee_id')->unsigned();
 		$table->string('gradu_year');
 		$table->string('description');scanned in single document
 		$table->foreign('employee_d')->references('id')->on('employee');
 		$table->string('attach_cert'); // 
 
-qualifications 
+    qualifications 
 		$table->integer('employee_id')->unsigned();
 		$table->string('graduatedate');
 		$table->string('gpa')->unsigned(); //upersecond lower second etc
@@ -154,7 +158,7 @@ qualifications
 		$table->integer('program_id')->unsigned();
   		$table->foreign('program_id')->references('id')->on('program');
 
-plans:
+    plans:
 		$table->integer('employee_id')->unsigned();
 		$table->integer('program_id')->unsigned(); //Meteorology, Climate change, Hydrology and Meteorology, Electronic and Telecommunication
 		$table->string('startdate'); //Plan is made when to study
@@ -162,7 +166,7 @@ plans:
         $table->foreign('program_id')->references('id')->on('program');
 		$table->foreign('employeeid')->references('id')->on('employee');
 
-academiclevels:
+    academiclevels:
 		$table->integer('employee_id')->unsigned();
 		$table->string('academiclevel_id')->unsigned(); //Certificate, Diploma, Bachelar, Masters, PHD, Professor
 		$table->integer('program_id')->unsigned();
@@ -170,7 +174,7 @@ academiclevels:
 		$table->foreign('employee_d')->references('id')->on('employee');
 		$table->foreign('program_d')->references('id')->on('program');
 
- progressives: (Can onlu uload)
+  progressives: (Can onlu uload)
  	$table->integer('employee_id')->unsigned();
  	$table->integer('transaction_id')->unsigned();
  	$table->foreign('employee_id')->references('id')->on('employee');
@@ -178,6 +182,7 @@ academiclevels:
 	$table->string('remarks');
 	$table->string('attach_cert');
 // Decriptions: Muda uliyopangiwa inatarajiwa na bujet, gender, scacity, umri, scholership criteria, etc
+
 ## CRUD Procedure:
 
 - Create Model and Migration at the same time: php artisan make:model Program -m 
@@ -253,6 +258,9 @@ Invalid argument supplied for foreach() (View: C:\wamp\www\tmatrn\resources\view
 Trying to get property of non-object (View: C:\wamp\www\tmatrn\resources\views\transactions-mgmt\index.blade.php)
 in 2441cde5c117d776374649c73c13cc8d6f6bdf60.php line 61 // Angalia model--Mode iwe na id's za pande zote mbili
 
+Trying to get property of non-object (View: C:\wamp\www\tmatrn\resources\views\transactions-mgmt\index.blade.php)
+in 2441cde5c117d776374649c73c13cc8d6f6bdf60.php line 61 : Record kwenye data base haipo au haidani na ya kwenyenye foreign key table
+
 
 System Customisations
 http://localhost:8000/employee-management/create
@@ -314,3 +322,6 @@ Ili form iweze kufanya kazi lazima yafuatayuo yafanyike. Kwa vile natumia larave
   - Sections
   - Academic Level
   - Training trend in 5 to come
+  
+staus: on job training
+Remarks on time frame + why not trainned?

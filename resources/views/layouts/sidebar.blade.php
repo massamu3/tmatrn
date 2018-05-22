@@ -54,8 +54,6 @@
           </a>
           <ul class="treeview-menu">
           <li><a href="{{ url('transaction-management') }}">Manage Programs</a></li>
-          <li><a href="{{ url('academiclevel-management') }}">Manage Academic levels</a></li>
-          <li><a href="{{ url('academiclevel-management') }}">Manage qualification</a></li>
           <li><a href="{{ url('plan-management') }}">Training Planning</a></li>
           <li><a href="{{ url('progressive-management') }}">progressive Information</a></li>
           <li><a href="{{ url('certificate-management') }}">Certificates archival</a></li>
@@ -70,8 +68,8 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{ url('trn1-management/program') }}">Program</a></li>
-            <li><a href="{{ url('trn1-management/school') }}">Schools</a></li>
-            <li><a href="{{ url('trn1-management/school') }}">Academic levels</a></li>
+            <li><a href="{{ url('trn1-management/school') }}">Institutions</a></li>
+            <li><a href="{{ url('trn1-management/academic') }}">Program Name</a></li>
             
 
           </ul>

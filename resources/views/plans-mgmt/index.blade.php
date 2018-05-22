@@ -34,15 +34,19 @@
             <thead>
               <tr role="row">
 
-                <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Names</th>
+                <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Full Name</th>
 
 
-                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="program: activate to sort column ascending">Program </th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="program: activate to sort column ascending">Program  </th>
+
+
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="program: activate to sort column ascending">Program Name </th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="startdate: activate to sort column ascending">Financial Year</th>
                 
 
-                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="startdate: activate to sort column ascending">Time frame</th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="startdate: activate to sort column ascending">Financial Year</th>
 
-                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmod: activate to sort column ascending">Program Spam</th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmod: activate to sort column ascending">Program Type</th>
 
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="pcost: activate to sort column ascending">Associated Costs</th>
 
@@ -54,18 +58,17 @@
             <tbody>
               @foreach ($plans as $plan)
               <tr role="row" class="odd">
-                <td class="hidden-xs">{{$plan->employees->id }}</td>
+                <td class="hidden-xs">{{$plan->employees->name_all }}</td>
                 <td class="hidden-xs">{{$plan->programs->name }}</td>
+                <td class="hidden-xs">{{$plan->academics->name }}</td>
+                <td class="hidden-xs">{{$plan->schools->name }}</td>
                 <td class="hidden-xs">{{$plan->startdate}}</td>
                 <td class="hidden-xs">{{$plan->progmod}}</td>
-                <td class="hidden-xs">{{$plan->pcost}}</td>
                 <td class="hidden-xs">{{$plan->ifattend}}</td>
-                
+                <td class="hidden-xs">{{$plan->pcost}}</td>
+
 
                 <td>
-
-                  <!-- id  employee_id program_id  startdate progmod pcost  -->
-
                   <form class="row" method="POST" action="{{ route('plan-management.destroy', ['id' => $plan->id]) }}" onsubmit = "return confirm('Are you sure?')">
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -89,29 +92,30 @@
                         <thead>
                           <tr role="row">
 
-                           <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Names</th>
+                            <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Full Name</th>
 
 
-                           <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="program: activate to sort column ascending">Program </th>
-                           
+                            <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="program: activate to sort column ascending">Program  </th>
 
-                           <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="startdate: activate to sort column ascending">Time frame</th>
+                            <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="program: activate to sort column ascending">Program Name </th>
+                            <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="startdate: activate to sort column ascending">Financial Year</th>
 
-                           <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmod: activate to sort column ascending">Program Spam</th>
+                            <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="progmod: activate to sort column ascending">Program Type</th>
 
-                           <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="pcost: activate to sort column ascending">Associated Costs</th>
+                            <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="pcost: activate to sort column ascending">Associated Costs</th>
 
-                           <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="pcost: activate to sort column ascending">Has Attended?</th>
+                            <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="pcost: activate to sort column ascending">Has Attended?</th>
 
-                           <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+                            <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
+                          </tr>
 
-                         </tr>
-                       </tr>
-                     </tfoot>
-                   </table>
-                 </div>
-               </div>
-               <div class="row">
+                        </tr>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+              </div>
+              <div class="row">
                 <div class="col-sm-5">
                   <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to {{count($plans)}} of {{count($plans)}} entries</div>
                 </div>

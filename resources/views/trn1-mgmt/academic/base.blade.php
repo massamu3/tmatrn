@@ -4,11 +4,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Training Mangement
+        Program name Mangement
       </h1>
       <ol class="breadcrumb">
-        <!-- li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li-->
-        <li class="active">Training Routine</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Training settings</a></li>
+        <li class="active">program names</li>
       </ol>
     </section>
     @yield('action-content')
