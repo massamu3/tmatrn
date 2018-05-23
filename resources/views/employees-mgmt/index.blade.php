@@ -35,10 +35,13 @@
               <tr role="row">
                 <th width="8%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
                 <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
-                <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Sex: activate to sort column ascending">Sex</th>
-           
+                <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="chequeno: activate to sort column ascending">chequeno</th>
+
+              <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Sex: activate to sort column ascending">Gender</th>
+
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthdate: activate to sort column ascending">Birthdate</th>
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Employ date</th>
+
 
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Station: activate to sort column ascending">Station</th>
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Division: activate to sort column ascending">Division</th>
@@ -50,11 +53,12 @@
                 <tr role="row" class="odd">
                   <td><img src="../{{$employee->picture}}" width="50px" height="50px"/></td>
                   <td class="sorting_1">{{$employee->name_all}}</td>
-                  <td class="hidden-xs">{{ $employee->sex }}</td>
-                  <td class="hidden-xs">{{ $employee->birthdate }}</td>
-                  <td class="hidden-xs">{{ $employee->date_hired}}</td>
-                  <td class="hidden-xs">{{ $employee->stations->name }}</td>
-                  <td class="hidden-xs">{{ $employee->divisions->name }}</td>
+                  <td class="hidden-xs">{{$employee->sex}}</td>
+                  <td class="sorting_1">{{$employee->chequeno}}</td>
+                   <td class="hidden-xs">{{$employee->birthdate}}</td>
+                  <td class="hidden-xs">{{$employee->date_hired}}</td>
+                 <td class="hidden-xs">{{$employee->stations->name}}</td>
+                  <td class="hidden-xs">{{$employee->divisions->name}}</td> 
                   <td>
                     <form class="row" method="POST" action="{{ route('employee-management.destroy', ['id' => $employee->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
@@ -62,9 +66,9 @@
                         <a href="{{ route('employee-management.edit', ['id' => $employee->id]) }}" class="btn btn-warning col-sm-3 col-xs-5 btn-margin">
                         Update
                         </a>
-                         <button type="submit" class="btn btn-danger col-sm-3 col-xs-5 btn-margin">
+<!--                          <button type="submit" class="btn btn-danger col-sm-3 col-xs-5 btn-margin">
                           Delete
-                        </button>
+                        </button> -->
                     </form>
                   </td>
               </tr>
@@ -78,11 +82,16 @@
           <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
             <thead>
               <tr role="row">
-                <th width="8%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
+               <th width="8%" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Picture: activate to sort column descending" aria-sort="ascending">Picture</th>
                 <th width="10%" class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending">Employee Name</th>
-                <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Sex: activate to sort column ascending">Sex</th>
-           
+                <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="chequeno: activate to sort column ascending">chequeno</th>
+
+              <th width="12%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Sex: activate to sort column ascending">Sex</th>
+              
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Birthdate: activate to sort column ascending">Birthdate</th>
+                <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Designation: activate to sort column ascending">Employ date</th>
+
+
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Station: activate to sort column ascending">Station</th>
                 <th width="8%" class="sorting hidden-xs" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Division: activate to sort column ascending">Division</th>
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>

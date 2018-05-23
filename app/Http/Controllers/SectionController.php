@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Section;
-use App\Division;
 
 class SectionController extends Controller
 {
@@ -16,7 +15,7 @@ class SectionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->only(["index", "create", "store", "edit", "update", "search", "destroy"]);
+        $this->middleware('auth');
     }
 
     /**
@@ -26,10 +25,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-         $sections = DB::table('section')
-        ->leftJoin('division', 'section.division_id', '=', 'division.id')
-        ->select('section.id', 'section.name', 'division.name as division_name', 'division.id as division_id')
-        ->paginate(5);
+        $sections = Section::paginate(5);
+
         return view('system-mgmt/section/index', ['sections' => $sections]);
     }
 
@@ -40,8 +37,7 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $divisions = Division::all();
-        return view('system-mgmt/section/create', ['divisions' => $divisions]);
+        return view('system-mgmt/section/create');
     }
 
     /**
@@ -52,11 +48,9 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        Division::findOrFail($request['division_id']);
         $this->validateInput($request);
-         Section::create([
-            'name' => $request['name'],
-            'division_id' => $request['division_id']
+         section::create([
+            'name' => $request['name']
         ]);
 
         return redirect()->intended('system-management/section');
@@ -87,8 +81,7 @@ class SectionController extends Controller
             return redirect()->intended('/system-management/section');
         }
 
-        $divisions = Division::all();
-        return view('system-mgmt/section/edit', ['section' => $section, 'divisions' => $divisions]);
+        return view('system-mgmt/section/edit', ['section' => $section]);
     }
 
     /**
@@ -100,14 +93,13 @@ class SectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $section = section::findOrFail($id);
-         $this->validate($request, [
+        $section = Section::findOrFail($id);
+        $input = [
+            'name' => $request['name']
+        ];
+        $this->validate($request, [
         'name' => 'required|max:60'
         ]);
-        $input = [
-            'name' => $request['name'],
-            'division_id' => $request['division_id']
-        ];
         section::where('id', $id)
             ->update($input);
         
@@ -126,12 +118,6 @@ class SectionController extends Controller
          return redirect()->intended('system-management/section');
     }
 
-    public function loadsections($divisionId) {
-        $sections = section::where('division_id', '=', $divisionId)->get(['id', 'name']);
-
-        return response()->json($sections);
-    }
-
     /**
      * Search section from database base on some specific constraints
      *
@@ -146,7 +132,7 @@ class SectionController extends Controller
        $sections = $this->doSearchingQuery($constraints);
        return view('system-mgmt/section/index', ['sections' => $sections, 'searchingVals' => $constraints]);
     }
-    
+
     private function doSearchingQuery($constraints) {
         $query = section::query();
         $fields = array_keys($constraints);
@@ -162,7 +148,8 @@ class SectionController extends Controller
     }
     private function validateInput($request) {
         $this->validate($request, [
-        'name' => 'required|max:60|unique:section'
+        'name' => 'required|max:60|unique:section',
+
     ]);
     }
 }

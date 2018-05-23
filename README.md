@@ -103,85 +103,7 @@ IT uses Laravel 5.5 and AdminLTE and Mysql Database
 
 ## Database table descriptions
 
-$table->increments('employees', true);
-  		$table->string('lastname', 60);
-  		$table->string('firstname', 60);
-  		$table->string('middlename', 60);
-  		$table->string('chequeno', 12);
-  		$table->string('designation', 60);
-  		$table->string('sex', 6);
-  		$table->date('birthdate');
-  		$table->date('date_hired');
-		  $table->integer('schemeservice_id')->unsigned();
-    	$table->integer('section_id')->unsigned();
-    	$table->integer('status_id')->unsigned();
-    	$table->integer('division_id')->unsigned();
-    	$table->integer('station_id')->unsigned();;
-    	$table->foreign('section_id')->references('id')->on('section');
-    	$table->foreign('division_id')->references('id')->on('division');
-    	$table->foreign('station_id')->references('id')->on('station');
-    	$table->foreign('status_id')->references('id')->on('status');
-    	$table->foreign('schemeservice_id')->references('id')->on('schemeservice');
-    	$table->string('picture', 60);
-    	$table->timestamps();
-    	$table->softDeletes(); //How does this apply in laravel?
-
-Schema::create('transactions', function (Blueprint $table) 
-        $table->increments('id', true);
-        $table->integer('employee_id')->unsigned();
-        $table->integer('program_id')->unsigned();
-        $table->integer('school_id')->unsigned();
-        $table->integer('status_id')->unsigned(); // On study, Completed, discontinued, postponed)
-        $table->string('lasttrnperiod')->unsigned();
-        $table->date('startdate');
-        $table->date('enddate');
-		$table->string('progmod')->unsigned(); //can be short or long
-        $table->foreign('employeeid')->references('id')->on('employee');
-        $table->foreign('program_id')->references('id')->on('program');
-        $table->foreign('school_id')->references('id')->on('school');
-        $table->timestamps();
-        $table->softDeletes();
-
-
-    certificates  (Shall upload but neither delete nor update)
-		$table->integer('employee_id')->unsigned();
-		$table->string('gradu_year');
-		$table->string('description');scanned in single document
-		$table->foreign('employee_d')->references('id')->on('employee');
-		$table->string('attach_cert'); // 
-
-    qualifications 
-		$table->integer('employee_id')->unsigned();
-		$table->string('graduatedate');
-		$table->string('gpa')->unsigned(); //upersecond lower second etc
-		$table->string('description');
-		$table->integer('program_id')->unsigned();
-  		$table->foreign('program_id')->references('id')->on('program');
-
-    plans:
-		$table->integer('employee_id')->unsigned();
-		$table->integer('program_id')->unsigned(); //Meteorology, Climate change, Hydrology and Meteorology, Electronic and Telecommunication
-		$table->string('startdate'); //Plan is made when to study
-		$table->string('progmod'); //can be short or long
-        $table->foreign('program_id')->references('id')->on('program');
-		$table->foreign('employeeid')->references('id')->on('employee');
-
-    academiclevels:
-		$table->integer('employee_id')->unsigned();
-		$table->string('academiclevel_id')->unsigned(); //Certificate, Diploma, Bachelar, Masters, PHD, Professor
-		$table->integer('program_id')->unsigned();
-		$table->string('timeperiod')->unsigned();
-		$table->foreign('employee_d')->references('id')->on('employee');
-		$table->foreign('program_d')->references('id')->on('program');
-
-  progressives: (Can onlu uload)
- 	$table->integer('employee_id')->unsigned();
- 	$table->integer('transaction_id')->unsigned();
- 	$table->foreign('employee_id')->references('id')->on('employee');
-	$table->foreign('transaction_id')->references('id')->on('transaction');
-	$table->string('remarks');
-	$table->string('attach_cert');
-// Decriptions: Muda uliyopangiwa inatarajiwa na bujet, gender, scacity, umri, scholership criteria, etc
+see migrations
 
 ## CRUD Procedure:
 
@@ -325,3 +247,6 @@ Ili form iweze kufanya kazi lazima yafuatayuo yafanyike. Kwa vile natumia larave
   
 staus: on job training
 Remarks on time frame + why not trainned?
+
+Data migration
+My favourite for the job is Windows based HeidiSQL. It gives you a graphical interface to build the LOAD DATA command; you can re-use it programmatically later

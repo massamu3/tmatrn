@@ -56,7 +56,7 @@
           <li><a href="{{ url('transaction-management') }}">Manage Programs</a></li>
           <li><a href="{{ url('plan-management') }}">Training Planning</a></li>
           <li><a href="{{ url('progressive-management') }}">progressive Information</a></li>
-          <li><a href="{{ url('certificate-management') }}">Certificates archival</a></li>
+          <li><a href="{{ url('progressive-management') }}">Certificates archival</a></li>
           </ul>
         </li>
 

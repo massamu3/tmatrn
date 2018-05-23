@@ -23,6 +23,4 @@ class Employee extends Model
         return $this->belongsTo('App\Division', 'division_id', 'id');
     }
 
-
-
 }

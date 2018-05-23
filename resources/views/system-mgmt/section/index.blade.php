@@ -19,14 +19,6 @@
         <div class="col-sm-6"></div>
         <div class="col-sm-6"></div>
       </div>
-      <form method="POST" action="{{ route('section.search') }}">
-         {{ csrf_field() }}
-         @component('layouts.search', ['title' => 'Search'])
-          @component('layouts.two-cols-search-row', ['items' => ['Name'], 
-          'oldVals' => [isset($searchingVals) ? $searchingVals['name'] : '']])
-          @endcomponent
-        @endcomponent
-      </form>
     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
       <div class="row">
         <div class="col-sm-12">
@@ -34,7 +26,7 @@
             <thead>
               <tr role="row">
                 <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="section: activate to sort column ascending">section Name</th>
-                <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="state: activate to sort column ascending">State Name</th>
+             
                 <th tabindex="0" aria-controls="example2" rowspan="1" colspan="2" aria-label="Action: activate to sort column ascending">Action</th>
               </tr>
             </thead>
@@ -43,8 +35,7 @@
             @foreach ($sections as $section)
                 <tr role="row" class="odd">
                   <td>{{ $section->name }}</td>
-                  <td>{{ $section->division_name }}</td>
-                  <td>
+                            <td>
                     <form class="row" method="POST" action="{{ route('section.destroy', ['id' => $section->id]) }}" onsubmit = "return confirm('Are you sure?')">
                         <input type="hidden" name="_method" value="DELETE">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -62,7 +53,7 @@
             <tfoot>
               <tr>
                 <th width="20%" rowspan="1" colspan="1">section Name</th>
-                <th width="20%" class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="state: activate to sort column ascending">State Name</th>
+           
                 <th rowspan="1" colspan="2">Action</th>
               </tr>
             </tfoot>

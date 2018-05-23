@@ -65,7 +65,7 @@ desired effect
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      <center> <strong><h2>MINISTRY OF WORKS, TRANSPORT AND COMMUNICATION</h1></strong></center></h2>
+<center> <strong><h4>MINISTRY OF WORKS, TRANSPORT AND COMMUNICATION</strong></center></h4>
       <center> <strong><h1>Tanzania Meteorological Agency</h1></strong></center>
     
       <ol class="breadcrumb">

@@ -23,16 +23,7 @@
                                 @endif
                             </div>
                         </div>
-                          <div class="form-group">
-                            <label class="col-md-4 control-label">station</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="station_id">
-                                    @foreach ($stations as $station)
-                                        <option value="{{$station->id}}" {{$station->id == $division->station_id ? 'selected' : ''}}>{{$station->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+     
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

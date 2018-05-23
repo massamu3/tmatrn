@@ -33,7 +33,7 @@ class EmployeeManagementController extends Controller
     public function index()
     {
 
-        $employees = Employee::orderBy('id', 'DESC')->with('stations', 'divisions')->paginate(10); //others can be added here
+        $employees = Employee::orderBy('id', 'ASC')->with('stations', 'divisions')->paginate(10); //others can be added here
         //return $employees;
         return view('employees-mgmt/index', ['employees' => $employees]);
     }
@@ -110,12 +110,11 @@ class EmployeeManagementController extends Controller
         if ($employee == null || count($employee) == 0) {
             return redirect()->intended('/employee-management');
         }
-        $sections = section::all();
-        $divisions = division::all();
-        $stations = station::all();
-        $designations = designation::all();
-        $divisions = division::all();
-        $statuss = status::all();
+        $sections = Section::all();
+        $divisions = Division::all();
+        $stations = Station::all();
+        $designations = Designation::all();
+        $statuss = Status::all();
         return view('employees-mgmt/edit', 
             ['employee' => $employee, 
             'sections' => $sections,
@@ -124,6 +123,11 @@ class EmployeeManagementController extends Controller
             'designations' => $designations,
             'divisions' => $divisions]);
     }
+
+
+
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -136,7 +140,7 @@ class EmployeeManagementController extends Controller
         $employee = Employee::findOrFail($id);
         $this->validateInput($request);
         // Upload image
-    $keys = ['name_all', 'chequeno','sex','birthdate', 'date_hired','designation_id', 'status_id','schemeservice', 'station_id', 'division_id', 'section_id'];
+        $keys = ['name_all', 'chequeno', 'sex', 'birthdate', 'date_hired', 'designation_id','status_id', 'schemeservice', 'station_id', 'division_id', 'section_id'];
         $input = $this->createQueryInput($keys, $request);
         if ($request->file('picture')) {
             $path = $request->file('picture')->store('avatars');
@@ -144,10 +148,11 @@ class EmployeeManagementController extends Controller
         }
 
         Employee::where('id', $id)
-        ->update($input);
+            ->update($input);
 
         return redirect()->intended('/employee-management');
     }
+
 
     /**
      * Remove the specified resource from storage.

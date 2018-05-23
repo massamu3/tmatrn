@@ -23,16 +23,7 @@
                                 @endif
                             </div>
                         </div>
-                          <div class="form-group">
-                            <label class="col-md-4 control-label">division</label>
-                            <div class="col-md-6">
-                                <select class="form-control" name="division_id">
-                                    @foreach ($divisions as $division)
-                                        <option value="{{$division->id}}" {{$division->id == $section->division_id ? 'selected' : ''}}>{{$division->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+              
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
