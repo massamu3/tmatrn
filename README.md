@@ -250,3 +250,20 @@ Remarks on time frame + why not trainned?
 
 Data migration
 My favourite for the job is Windows based HeidiSQL. It gives you a graphical interface to build the LOAD DATA command; you can re-use it programmatically later
+
+Running application without php artiasan serve
+The need to point public  directory: 
+procedure:
+-- Edit the file apache/conf/extra/httpd-hots.conf
+-- Create a virtual host by dublicate codes and create virtual hosts
+
+-- Give permission to the storage directory chmod -R 777 storage/
+Create a virtual host
+-- in linux ubuntu: /etc/apache2/site-availables then add virtual hosts
+-- Dublicate the file with running host kwenye folder la available virtual hosts
+-- Activate visual hosts (Enable site on local machine) sudo a2ensite tmatrn.meteo.go.tz.tmatrn.conf
+service apache2 reload
+service apache2 restart gedi /etc/hosts
+
+
+Create user, import database, update .env file, delete old project, zip local, change local database name, ensure correct paths, make changes on public index.php as well as .htcacces file

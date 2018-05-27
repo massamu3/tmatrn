@@ -52,7 +52,7 @@
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">BirthDate</label>
+                            <label class="col-md-4 control-label">Birth Date</label>
                             <div class="col-md-6">
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -66,7 +66,7 @@
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Hired Date</label>
+                            <label class="col-md-4 control-label">Date of Employment</label>
                             <div class="col-md-6">
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -99,7 +99,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('schemeservice') ? ' has-error' : '' }}">
-                            <label for="schemeservice" class="col-md-4 control-label">schemeservice</label>
+                            <label for="schemeservice" class="col-md-4 control-label">Terms of Employment</label>
 
                             <div class="col-md-6">
                                 <input id="schemeservice" type="text" class="form-control" name="schemeservice" value="{{ $employee->schemeservice }}" required>
@@ -113,7 +113,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">station</label>
+                            <label class="col-md-4 control-label">Station</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="station_id">
                                     @foreach ($stations as $station)
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">division</label>
+                            <label class="col-md-4 control-label">Division</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="division_id">
                                     @foreach ($divisions as $division)
@@ -136,7 +136,7 @@
 
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">section</label>
+                            <label class="col-md-4 control-label">Section</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="section_id">
                                     @foreach ($sections as $section)
